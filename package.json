@@ -49,14 +49,18 @@
     "npm": ">=3"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "bootstrap": "^3.3.7",
     "lodash": "4.17.11",
+    "mobx": "^3.2.2",
+    "mobx-react": "^4.2.2",
     "npm-check-updates": "^2.14.2",
     "prop-types": "15.6.2",
     "react": "16.6.0",
     "react-bootstrap": "^0.32.4",
     "react-dom": "16.6.0",
-    "react-hot-loader": "4.3.11"
+    "react-hot-loader": "4.3.11",
+    "react-spinners": "^0.4.7"
   },
   "resolutions": {
     "babel-core": "7.0.0-bridge.0"

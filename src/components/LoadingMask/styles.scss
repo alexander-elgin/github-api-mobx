@@ -1,0 +1,24 @@
+.mask {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: 0.8;
+}
+
+$spinner-size: 150px;
+
+.spinner {
+  display: block;
+  margin: 0 auto;
+  width: $spinner-size;
+  height: $spinner-size;
+}
+
+.spinner-block {
+  position: absolute;
+  top: calc(50% - #{$spinner-size} / 2);
+  left: 0;
+  width: 100%;
+  text-align: center;
+}

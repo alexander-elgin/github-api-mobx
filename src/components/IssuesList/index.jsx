@@ -11,7 +11,7 @@ class List extends React.Component {
     const { items } = issues;
 
     return (
-      <Table striped hover responsive>
+      <Table striped hover>
         <thead>
           <tr>
             <th>Issue</th>

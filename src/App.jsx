@@ -11,11 +11,13 @@ import ErrorsList from './components/ErrorsList';
 import Header from './components/Header';
 import IssuesList from './components/IssuesList';
 import LoadingMask from './components/LoadingMask';
+import Pagination from './components/Pagination';
 
 class App extends React.Component {
   componentDidMount() {
+    const { itemsPerPage, page } = stores.pagination;
     const { organization, project } = stores.repository;
-    stores.issues.update(organization, project);
+    stores.issues.update(organization, project, itemsPerPage, page);
   }
 
   render() {
@@ -33,6 +35,9 @@ class App extends React.Component {
                 <IssuesList />
               </div>
             </Panel.Body>
+            <Panel.Footer>
+              <Pagination />
+            </Panel.Footer>
           </Panel>
         </div>
       </Provider>

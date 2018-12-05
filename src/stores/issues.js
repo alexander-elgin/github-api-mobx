@@ -1,5 +1,5 @@
 import { action, observable } from 'mobx';
-import axios from 'axios';
+import cachios from 'cachios';
 
 export default class Issues {
   @observable
@@ -41,15 +41,21 @@ export default class Issues {
     this.totalNumber = totalNumber;
   }
 
-  async update(organization, project) {
+  update = async (organization, project, itemsPerPage, page) => {
     this.setError(null);
     this.setLoading(true);
     this.setItems([]);
     this.setTotalNumber(0);
 
     try {
-      const { data } = await axios.get(
-        `https://api.github.com/search/issues?q=repo:${organization}/${project}&sort=created&order=asc`,
+      const endpointBase =
+        'https://api.github.com/search/issues?sort=created&order=asc';
+
+      const { data } = await cachios.get(
+        `${endpointBase}&q=repo:${organization}/${project}&page=${page}&per_page=${itemsPerPage}`,
+        {
+          ttl: 300,
+        },
       );
 
       this.setItems(data.items);
@@ -59,5 +65,5 @@ export default class Issues {
     } finally {
       this.setLoading(false);
     }
-  }
+  };
 }

@@ -5,14 +5,16 @@ import { ScaleLoader } from 'react-spinners';
 
 import styles from './styles.scss';
 
+@inject('criteria')
 @inject('issues')
 @observer
 class LoadingMask extends React.Component {
   render() {
-    const { issues } = this.props;
-    const { loading } = issues;
+    const { criteria, issues } = this.props;
+    const { loading: criteriaLoading } = criteria;
+    const { loading: issuesLoading } = issues;
 
-    if (!loading) {
+    if (!criteriaLoading && !issuesLoading) {
       return null;
     }
 
@@ -27,6 +29,9 @@ class LoadingMask extends React.Component {
 }
 
 LoadingMask.propTypes = {
+  criteria: PropTypes.shape({
+    loading: PropTypes.bool,
+  }),
   issues: PropTypes.shape({
     loading: PropTypes.bool,
   }),

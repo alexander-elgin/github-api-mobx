@@ -9,13 +9,15 @@ import ButtonGroup from 'react-bootstrap/lib/ButtonGroup';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 
+@inject('criteria')
 @inject('issues')
 @inject('pagination')
 @inject('repository')
 @observer
 class Pagination extends React.Component {
   render() {
-    const { issues, pagination, repository } = this.props;
+    const { criteria, issues, pagination, repository } = this.props;
+    const { query, users } = criteria;
     const { totalNumber, update } = issues;
     const { itemsPerPage, page, setItemsPerPage, setPage } = pagination;
     const { organization, project } = repository;
@@ -23,12 +25,14 @@ class Pagination extends React.Component {
     const turnOverPage = increment => {
       const currentPage = page + increment;
       setPage(currentPage);
-      update(organization, project, itemsPerPage, currentPage);
+      update(organization, project, itemsPerPage, currentPage, query, users);
     };
 
     const changeItemsPerPage = itemsNumber => {
+      const firstPage = 1;
+      setPage(firstPage);
       setItemsPerPage(itemsNumber);
-      update(organization, project, itemsNumber, page);
+      update(organization, project, itemsNumber, firstPage, query, users);
     };
 
     return (
@@ -70,6 +74,10 @@ class Pagination extends React.Component {
 }
 
 Pagination.propTypes = {
+  criteria: PropTypes.shape({
+    query: PropTypes.string,
+    users: PropTypes.array,
+  }),
   issues: PropTypes.shape({
     totalNumber: PropTypes.number,
     update: PropTypes.func,

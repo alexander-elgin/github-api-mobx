@@ -8,6 +8,7 @@ import styles from './styles.scss';
 import stores from './stores';
 
 import ErrorsList from './components/ErrorsList';
+import Criteria from './components/Criteria';
 import Header from './components/Header';
 import IssuesList from './components/IssuesList';
 import LoadingMask from './components/LoadingMask';
@@ -15,9 +16,12 @@ import Pagination from './components/Pagination';
 
 class App extends React.Component {
   componentDidMount() {
+    const { fetchAvailableUsers, query } = stores.criteria;
     const { itemsPerPage, page } = stores.pagination;
     const { organization, project } = stores.repository;
-    stores.issues.update(organization, project, itemsPerPage, page);
+
+    fetchAvailableUsers(organization, project);
+    stores.issues.update(organization, project, itemsPerPage, page, query);
   }
 
   render() {
@@ -25,9 +29,10 @@ class App extends React.Component {
       <Provider {...stores}>
         <div>
           <LoadingMask />
+          <Header />
           <Panel>
             <Panel.Heading>
-              <Header />
+              <Criteria />
             </Panel.Heading>
             <Panel.Body>
               <ErrorsList />

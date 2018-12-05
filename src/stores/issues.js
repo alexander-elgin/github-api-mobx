@@ -1,5 +1,10 @@
+/* eslint prettier/prettier: 0 */
+
 import { action, observable } from 'mobx';
 import cachios from 'cachios';
+
+const getGitHubQueryCriterion = criterion => criterion.length > 0 ? `${criterion}+` : '';
+const getUsersQuery = users => getGitHubQueryCriterion(users.map(user => `involves:${user}`).join('+'));
 
 export default class Issues {
   @observable
@@ -41,7 +46,7 @@ export default class Issues {
     this.totalNumber = totalNumber;
   }
 
-  update = async (organization, project, itemsPerPage, page) => {
+  update = async (organization, project, itemsPerPage, page, query, users = []) => {
     this.setError(null);
     this.setLoading(true);
     this.setItems([]);
@@ -52,7 +57,7 @@ export default class Issues {
         'https://api.github.com/search/issues?sort=created&order=asc';
 
       const { data } = await cachios.get(
-        `${endpointBase}&q=repo:${organization}/${project}&page=${page}&per_page=${itemsPerPage}`,
+        `${endpointBase}&q=${getGitHubQueryCriterion(query)}${getUsersQuery(users)}repo:${organization}/${project}&page=${page}&per_page=${itemsPerPage}`,
         {
           ttl: 300,
         },

@@ -1,7 +1,7 @@
 {
-  "name": "@HashemKhalifa/webpack-react-boilerplate",
+  "name": "github-api-mobx",
   "version": "1.0.0",
-  "description": "Boilerplate for react and webpack",
+  "description": "React & MobX app demonstrating GitHub API",
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --open",
@@ -40,8 +40,8 @@
       "jsx"
     ]
   },
-  "repository": "https://github.com/HashemKhalifa/webpack-react-boilerplate",
-  "author": "HashemKhalifa",
+  "repository": "https://github.com/alexander-elgin/github-api-mobx",
+  "author": "Alexander Elgin",
   "license": "ISC",
   "private": false,
   "engines": {
